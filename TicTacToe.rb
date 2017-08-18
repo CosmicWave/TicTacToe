@@ -1,23 +1,25 @@
-def initialize
-    arr = Array.new(3) { Array.new(3, " ") }
-  end
+
+def display_board(board)
+  puts " #{board[0]} | #{board[1]} | #{board[2]} "
+  puts "-----------"
+  puts " #{board[3]} | #{board[4]} | #{board[5]} "
+  puts "-----------"
+  puts " #{board[6]} | #{board[7]} | #{board[8]} "
+end
+
+board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+
+display_board(board)
 
 
-  def printBoard(board)
-    count = 1
-    (0..2).each do |row|
-      print "       "
-      (0..2).each do |col|
-        board[row][col] = count
-        print board[row][col]
-        print " | " unless col == 2
-        count += 1
-      end
-      print "\n"
-      print "       ---------\n" unless row == 2
-    end
-    print "\n"
-  end
+9.times do 
   
+  puts 
+  x = gets.chomp.to_i
 
-printBoard(initialize())
+
+board[x-1] = "x"
+
+display_board(board)
+
+end
