@@ -1,6 +1,6 @@
   firstTime = true
 
-  def printBoard(board)
+  def printBoard(board,firstTime)
     print "\n"
     count = 1
     (0..2).each do |row|
@@ -19,13 +19,23 @@
     return board
   end
   
-  def randomGrid{board}
+  def randomGrid(board)
       valid = board.flatten.select{|gridNum| gridNum.is_a? Integer}
       valid.sample
   end
   
   def validGrid(digit, board)
     (board.flatten[digit-1]).is_a? Integer   #if digit in board is an int, its a valid grid
+  end
+  
+  def checkInput(num)
+      #input validation - user should input digit between 1 to 9
+      while num < 1 || num > 9
+        puts "Please enter a digit between 1 to 9"
+        num = gets.chomp!.to_i
+        
+      end  
+      return num
   end
   
   def checkWin()
@@ -37,7 +47,7 @@ puts "Welcome to Tic Tac Toe!"
 
 #init board, print it
 gridArr = Array.new(3) {Array.new(3, " ") }
-gridArr = printBoard(gridArr)
+gridArr = printBoard(gridArr,firstTime)
 firstTime = false
 
 p "Choose a Game Mode: "
@@ -60,30 +70,26 @@ gameMode = gets.chomp!.to_i
 
     if !randomAI
       puts "player #{player} , choose a grid: "
-      input = gets.chomp!.to_i
-      
-      #input validation - user should input digit between 1 to 9
-      while input < 0 || input > 9
-        puts "Please enter a digit between 1 to 9"
-        input = gets.chomp!
-      end
+      input = checkInput(gets.chomp!.to_i)
     
       #input validation - user should input digit that has not been taken up in grid
-      unless validGrid(input,arr)
+      while !(validGrid(input,gridArr) )
         puts "Please choose an available digit from the grid: "
-        input = gets.chomp!
+        input = checkInput(gets.chomp!.to_i)
       end
       
     else                                          #AI turn, returns a random number
       input = randomGrid(gridArr)
     end
     
-    #
-    #assign value to arr  
-    #
+    #assign value into grid
+    row = (input-1)/3
+    col = (input-1)%3
+    gridArr[row][col] = symbol
 
-    #
+    #if turn >= 5
     #checkWins
+    #if win, break
     #
 
     if(turn == 9) #last turn, no winner
@@ -91,5 +97,5 @@ gameMode = gets.chomp!.to_i
       break
     end
     
-    printBoard(gridArr)
+    printBoard(gridArr,firstTime)
 end
