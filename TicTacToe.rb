@@ -1,12 +1,12 @@
 
-   def printBoard(board)
-    puts "printboard"
+  def printBoard(board)
+    print "\n"
     count = 1
     (0..2).each do |row|
       print "       "
       (0..2).each do |col|
-        board[row[col]] = count
-        print board[row[col]].to_s
+        board[row][col] = count
+        print board[row][col].to_s
         print " | " if col != 2
         count += 1
       end
@@ -14,6 +14,8 @@
       print "       ---------\n" unless row == 2
     end
     print "\n"
+    
+    return board
   end
 
 
@@ -30,22 +32,22 @@ puts "Welcome to Tic Tac Toe!"
 
 #init board, print it
 arr = Array.new(3) {Array.new(3, " ") }
-puts "arr is " + arr.to_s
-printBoard(arr)
+arr = printBoard(arr)
 
 def validGrid(digit, board)
-    puts "board is " + board.to_s
-    tempBoard = board.flatten
-    puts "board is " + tempBoard.to_s
-    return (tempBoard[digit-1]) == " "
+    (board.flatten[digit-1]).is_a? Integer   #if digit in board is an int, its a valid grid
+end
+
+def checkWin()
+
 end
 
 (1..9).each do |turn|
   
-if (turn%2 == 0)
+if (turn%2 == 0) #player 2's turn - even turns
   player = "2"
   symbol = "O"
-else
+else              #player 1's turn - odd turns
   player = "1"
   symbol = "X"
 end
@@ -53,12 +55,14 @@ end
     puts "player #{player} , choose a grid: "
     input = gets.chomp!.to_i
 
+    #input validation - user input digit between 1 to 9
     while input < 0 || input > 9
       puts "Please enter a digit between 1 to 9"
       input = gets.chomp!
     end
     
-    while validGrid(input,arr)
+    #input validation - user input digit that has not been taken up
+    unless validGrid(input,arr)
       puts "Please choose an available digit from the grid: "
       input = gets.chomp!
     end
@@ -66,7 +70,11 @@ end
     #
     #assign value to arr  
     #
-    
+
+    #
+    #checkWins
+    #
+
     if(turn == 9) #last turn, no winner
       puts "It's a draw! Thank you for playing!"
       break
