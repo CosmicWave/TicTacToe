@@ -1,3 +1,4 @@
+  firstTime = true
 
   def printBoard(board)
     print "\n"
@@ -5,7 +6,7 @@
     (0..2).each do |row|
       print "       "
       (0..2).each do |col|
-        board[row][col] = count
+        board[row][col] = count if firstTime
         print board[row][col].to_s
         print " | " if col != 2
         count += 1
@@ -17,54 +18,64 @@
     
     return board
   end
+  
+  def randomGrid{board}
+      valid = board.flatten.select{|gridNum| gridNum.is_a? Integer}
+      valid.sample
+  end
+  
+  def validGrid(digit, board)
+    (board.flatten[digit-1]).is_a? Integer   #if digit in board is an int, its a valid grid
+  end
+  
+  def checkWin()
+
+  end
 
 
 puts "Welcome to Tic Tac Toe!"
-# puts "Player 1, please choose your sign: 'X' or 'O'"
-# sign = gets.chomp!
-
-# while sign != "X" && symbol != "O"
-#   puts "Please enter either 'X' or 'O': " 
-#   sign = gets.chomp!.Upcase
-#   puts "sign is #{sign}"
-# end
-
 
 #init board, print it
-arr = Array.new(3) {Array.new(3, " ") }
-arr = printBoard(arr)
+gridArr = Array.new(3) {Array.new(3, " ") }
+gridArr = printBoard(gridArr)
+firstTime = false
 
-def validGrid(digit, board)
-    (board.flatten[digit-1]).is_a? Integer   #if digit in board is an int, its a valid grid
-end
+p "Choose a Game Mode: "
+p "1. Player 1 vs Player 2"
+p "2. Player 1 vs Random"
+gameMode = gets.chomp!.to_i
 
-def checkWin()
-
-end
 
 (1..9).each do |turn|
   
-if (turn%2 == 0) #player 2's turn - even turns
-  player = "2"
-  symbol = "O"
-else              #player 1's turn - odd turns
-  player = "1"
-  symbol = "X"
-end
-  
-    puts "player #{player} , choose a grid: "
-    input = gets.chomp!.to_i
-
-    #input validation - user input digit between 1 to 9
-    while input < 0 || input > 9
-      puts "Please enter a digit between 1 to 9"
-      input = gets.chomp!
+    if (turn%2 == 0) #player 2's turn - even turns
+      player = "2"
+      symbol = "O"
+    else              #player 1's turn - odd turns
+      player = "1"
+      symbol = "X"
     end
     
-    #input validation - user input digit that has not been taken up
-    unless validGrid(input,arr)
-      puts "Please choose an available digit from the grid: "
-      input = gets.chomp!
+    randomAI = true if gameMode == 2 && player == "2" #AI turn
+
+    if !randomAI
+      puts "player #{player} , choose a grid: "
+      input = gets.chomp!.to_i
+      
+      #input validation - user should input digit between 1 to 9
+      while input < 0 || input > 9
+        puts "Please enter a digit between 1 to 9"
+        input = gets.chomp!
+      end
+    
+      #input validation - user should input digit that has not been taken up in grid
+      unless validGrid(input,arr)
+        puts "Please choose an available digit from the grid: "
+        input = gets.chomp!
+      end
+      
+    else                                          #AI turn, returns a random number
+      input = randomGrid(gridArr)
     end
     
     #
@@ -80,5 +91,5 @@ end
       break
     end
     
-    printBoard(arr)
+    printBoard(gridArr)
 end
