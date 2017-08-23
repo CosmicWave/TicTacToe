@@ -92,10 +92,86 @@ gameMode = gets.chomp!.to_i
     #if win, break
     #
 
-    if(turn == 9) #last turn, no winner
-      puts "It's a draw! Thank you for playing!"
-      break
-    end
+ if (gridArr[0][0] == gridArr[0][1] && gridArr[0][1] == gridArr[0][2])
+     if gridArr[0][0] == "X"
+      puts 'player one wins'
+     else 
+      puts 'player two wins'
+     end
+     puts "Thank you for playing!"
+     break
+     
+    elsif (gridArr[1][0] == gridArr[1][1] && gridArr[1][1] == gridArr[1][2])
+     if gridArr[1][0] == "X"
+      puts 'player one wins'
+     else 
+      puts 'player two wins'
+     end
+      puts "Thank you for playing"
+     break
+     
+    elsif (gridArr[2][0] == gridArr[2][1] && gridArr[2][1] == gridArr[2][2])
+     if gridArr[2][0] == "X"
+      puts 'player one wins'
+     else 
+      puts 'player two wins'
+     end
+      puts "Thank you for playing"
+     break
+     
+    elsif (gridArr[0][0] == gridArr[1][1] && gridArr[1][1] == gridArr[2][2])
+     if gridArr[0][0] == "X"
+      puts 'player one wins'
+     else 
+      puts 'player two wins'
+     end
+      puts "Thank you for playing"
+     break
+
+    elsif (gridArr[0][0] == gridArr[1][0] && gridArr[1][0] == gridArr[2][0])
+     if gridArr[0][0] == "X"
+      puts 'player one wins'
+     else 
+      puts 'player two wins'
+     end
+     puts "Thank you for playing"
+     break
+
+    elsif (gridArr[0][1] == gridArr[1][1] && gridArr[1][1] == gridArr[2][1])
+     if gridArr[0][1] == "X"
+      puts 'player one wins'
+     else 
+      puts 'player two wins'
+     end
+      puts "Thank you for playing"
+     break
+
+    elsif (gridArr[0][2] == gridArr[1][2] && gridArr[1][2] == gridArr[2][2])
+     if gridArr[0][2] == "X"
+      puts 'player one wins'
+     else 
+      puts 'player two wins'
+     end
+      puts "Thank you for playing"
+     break
+
+    elsif (gridArr[0][2] == gridArr[1][1] && gridArr[1][1] == gridArr[2][0])
+     if gridArr[0][2] == "X"
+      puts 'player one wins'
+     else 
+      puts 'player two wins'
+     end
+      puts "Thank you for playing"
+     break
+    
+ end
+
+
+
+ if(turn == 9) #last turn, no winner
+    puts "It's a draw! Thank you for playing!"
+   break
+  end
     
     printBoard(gridArr,firstTime)
 end
