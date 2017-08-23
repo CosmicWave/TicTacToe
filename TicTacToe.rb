@@ -38,8 +38,24 @@
       return num
   end
   
-  def checkWin()
-
+  def checkWin(gridArr)
+      if (gridArr[0][0] == gridArr[0][1] && gridArr[0][1] == gridArr[0][2])
+         true
+    elsif (gridArr[1][0] == gridArr[1][1] && gridArr[1][1] == gridArr[1][2])
+         true
+    elsif (gridArr[2][0] == gridArr[2][1] && gridArr[2][1] == gridArr[2][2])
+         true
+    elsif (gridArr[0][0] == gridArr[1][1] && gridArr[1][1] == gridArr[2][2])
+         true
+    elsif (gridArr[0][0] == gridArr[1][0] && gridArr[1][0] == gridArr[2][0])
+         true
+    elsif (gridArr[0][1] == gridArr[1][1] && gridArr[1][1] == gridArr[2][1])
+         true
+    elsif (gridArr[0][2] == gridArr[1][2] && gridArr[1][2] == gridArr[2][2])
+         true
+    elsif (gridArr[0][2] == gridArr[1][1] && gridArr[1][1] == gridArr[2][0])
+         true
+    end
   end
 
 
@@ -49,6 +65,7 @@ puts "Welcome to Tic Tac Toe!"
 gridArr = Array.new(3) {Array.new(3, " ") }
 gridArr = printBoard(gridArr,firstTime)
 firstTime = false
+isWin = false
 
 p "Choose a Game Mode: "
 p "1. Player 1 vs Player 2"
@@ -87,91 +104,22 @@ gameMode = gets.chomp!.to_i
     col = (input-1)%3
     gridArr[row][col] = symbol
 
-    #if turn >= 5
-    #checkWins
-    #if win, break
-    #
+    if turn >= 5
+      isWin = checkWin(gridArr)
+    end
 
- if (gridArr[0][0] == gridArr[0][1] && gridArr[0][1] == gridArr[0][2])
-     if gridArr[0][0] == "X"
-      puts 'player one wins'
-     else 
-      puts 'player two wins'
-     end
-     puts "Thank you for playing!"
-     break
-     
-    elsif (gridArr[1][0] == gridArr[1][1] && gridArr[1][1] == gridArr[1][2])
-     if gridArr[1][0] == "X"
-      puts 'player one wins'
-     else 
-      puts 'player two wins'
-     end
-      puts "Thank you for playing"
-     break
-     
-    elsif (gridArr[2][0] == gridArr[2][1] && gridArr[2][1] == gridArr[2][2])
-     if gridArr[2][0] == "X"
-      puts 'player one wins'
-     else 
-      puts 'player two wins'
-     end
-      puts "Thank you for playing"
-     break
-     
-    elsif (gridArr[0][0] == gridArr[1][1] && gridArr[1][1] == gridArr[2][2])
-     if gridArr[0][0] == "X"
-      puts 'player one wins'
-     else 
-      puts 'player two wins'
-     end
-      puts "Thank you for playing"
-     break
+    if isWin
+      printBoard(gridArr,firstTime)
+      puts "Player #{player} wins."
+      puts "Thank you for playing!"
+      break
+    end
 
-    elsif (gridArr[0][0] == gridArr[1][0] && gridArr[1][0] == gridArr[2][0])
-     if gridArr[0][0] == "X"
-      puts 'player one wins'
-     else 
-      puts 'player two wins'
-     end
-     puts "Thank you for playing"
+    if(turn == 9) #last turn, no winner
+      printBoard(gridArr,firstTime)
+      puts "It's a draw! Thank you for playing!"
      break
-
-    elsif (gridArr[0][1] == gridArr[1][1] && gridArr[1][1] == gridArr[2][1])
-     if gridArr[0][1] == "X"
-      puts 'player one wins'
-     else 
-      puts 'player two wins'
-     end
-      puts "Thank you for playing"
-     break
-
-    elsif (gridArr[0][2] == gridArr[1][2] && gridArr[1][2] == gridArr[2][2])
-     if gridArr[0][2] == "X"
-      puts 'player one wins'
-     else 
-      puts 'player two wins'
-     end
-      puts "Thank you for playing"
-     break
-
-    elsif (gridArr[0][2] == gridArr[1][1] && gridArr[1][1] == gridArr[2][0])
-     if gridArr[0][2] == "X"
-      puts 'player one wins'
-     else 
-      puts 'player two wins'
-     end
-      puts "Thank you for playing"
-     break
-    
- end
-
-
-
- if(turn == 9) #last turn, no winner
-    puts "It's a draw! Thank you for playing!"
-   break
-  end
+    end
     
     printBoard(gridArr,firstTime)
 end
