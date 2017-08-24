@@ -1,5 +1,3 @@
-  firstTime = true
-
   def printBoard(board,firstTime)
     print "\n"
     count = 1
@@ -58,10 +56,10 @@
     end
   end
 
-
 puts "Welcome to Tic Tac Toe!"
 
 #init board, print it
+firstTime = true
 gridArr = Array.new(3) {Array.new(3, " ") }
 gridArr = printBoard(gridArr,firstTime)
 firstTime = false
